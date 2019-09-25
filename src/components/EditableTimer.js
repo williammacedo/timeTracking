@@ -4,12 +4,6 @@ import PropTypes from 'prop-types';
 import TimerForm from './TimerForm';
 import Timer from './Timer';
 
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-  },
-});
-
 export default function EditableTimer({
   id,
   title,

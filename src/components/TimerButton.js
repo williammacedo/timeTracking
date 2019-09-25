@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Stylesheet, Text} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
-const styles = Stylesheet.create({
+const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     minWidth: 100,
