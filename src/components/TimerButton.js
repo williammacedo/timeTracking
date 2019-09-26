@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text} from 'react-native';
-import {RectButton} from 'react-native-gesture-handler';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
@@ -32,7 +31,9 @@ const styles = StyleSheet.create({
 
 export default function TimerButton({color, title, small, onPress}) {
   return (
-    <RectButton style={[styles.button, {borderColor: color}]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.button, {borderColor: color}]}
+      onPress={onPress}>
       <Text
         style={[
           styles.buttonText,
@@ -41,7 +42,7 @@ export default function TimerButton({color, title, small, onPress}) {
         ]}>
         {title}
       </Text>
-    </RectButton>
+    </TouchableOpacity>
   );
 }
 

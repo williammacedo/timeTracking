@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Timer({title, project, elapsed}) {
+export default function Timer({title, project, elapsed, onEdit}) {
   const elapsedString = millisecondsToHuman(elapsed);
   return (
     <View style={styles.timerContainer}>
@@ -39,7 +39,7 @@ export default function Timer({title, project, elapsed}) {
       <Text>{project}</Text>
       <Text style={styles.elapsedTime}>{elapsedString}</Text>
       <View style={styles.buttonGroup}>
-        <TimerButton color="blue" small title="Edit" />
+        <TimerButton color="blue" small title="Edit" onPress={onEdit} />
         <TimerButton color="blue" small title="Remove" />
       </View>
       <TimerButton color="#21BA45" title="Start" />
@@ -50,9 +50,6 @@ export default function Timer({title, project, elapsed}) {
 Timer.propTypes = {
   title: PropTypes.string.isRequired,
   project: PropTypes.string.isRequired,
-  elapsed: PropTypes.bool,
-};
-
-Timer.defaultProps = {
-  elapsed: false,
+  elapsed: PropTypes.number.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };

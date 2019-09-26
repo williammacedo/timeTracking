@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
 
-import {StyleSheet, View, ScrollView} from 'react-native';
+import uuidv4 from 'uuid/v4';
 
 import EditableTimer from '../../components/EditableTimer';
 import ToggleableTimerForm from '../../components/ToggleableTimerForm';
@@ -18,29 +19,51 @@ export default class Main extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      timers: [
+        {
+          title: 'Mow the lawn',
+          project: 'House Chores',
+          id: uuidv4(),
+          elapsed: 5456099,
+          isRunning: true,
+        },
+        {
+          title: 'Wash Dishes',
+          project: 'House Chores',
+          id: uuidv4(),
+          elapsed: 8181300,
+          isRunning: false,
+        },
+        {
+          title: 'Bake squash',
+          project: 'Kitchen Chores',
+          id: uuidv4(),
+          elapsed: 1273998,
+          isRunning: false,
+        },
+      ],
+    };
   }
 
   render = () => {
+    const {timers} = this.state;
     return (
       <View style={styles.appContainer}>
-        <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm isOpen={false} />
-          <EditableTimer
-            id="1"
-            title="Mow the lawn"
-            project="House Chores"
-            elapsed="8986300"
-            isRunning
-          />
-          <EditableTimer
-            id="2"
-            title="Bake Squash"
-            project="Kitchen Chores"
-            elapsed="3890985"
-            editFormOpen
-          />
-        </ScrollView>
+        <ToggleableTimerForm />
+        <FlatList
+          data={timers}
+          renderItem={({item}) => (
+            <EditableTimer
+              id={item.id}
+              title={item.title}
+              project={item.project}
+              elapsed={item.elapsed}
+              isRunning={item.isRunning}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   };
