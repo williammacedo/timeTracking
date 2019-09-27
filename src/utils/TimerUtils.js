@@ -5,6 +5,14 @@ export const millisecondsToHuman = ms => {
   const minutes = Math.floor((ms / 1000 / 60) % 60);
   const hours = Math.floor(ms / 1000 / 60 / 60);
 
+  const pad = (numberString, size) => {
+    let padded = numberString;
+    while (padded.length < size) {
+      padded = `0${padded}`;
+    }
+    return padded;
+  };
+
   const humanized = [
     pad(hours.toString(), 2),
     pad(minutes.toString(), 2),
@@ -12,14 +20,6 @@ export const millisecondsToHuman = ms => {
   ].join(':');
 
   return humanized;
-};
-
-const pad = (numberString, size) => {
-  let padded = numberString;
-  while (padded.length < size) {
-    padded = `0${padded}`;
-  }
-  return padded;
 };
 
 export const newTimer = (attrs = {}) => {

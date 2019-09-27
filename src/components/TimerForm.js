@@ -39,11 +39,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function TimerForm({id, title, project}) {
+export default function TimerForm({id, title, project, onSubmit, onCancel}) {
   const submitText = id ? 'Update' : 'Create';
 
   const [formTitle, setFormTitle] = useState(id ? title : '');
   const [formProject, setFormProject] = useState(id ? project : '');
+
+  const handleSubmit = () =>
+    onSubmit({id, title: formTitle, project: formProject});
 
   return (
     <View style={styles.formContainer}>
@@ -70,8 +73,13 @@ export default function TimerForm({id, title, project}) {
         </View>
       </View>
       <View style={styles.buttonGroup}>
-        <TimerButton small color="#21BA45" title={submitText} />
-        <TimerButton small color="#DB2828" title="Cancel" />
+        <TimerButton
+          small
+          color="#21BA45"
+          title={submitText}
+          onPress={handleSubmit}
+        />
+        <TimerButton small color="#DB2828" title="Cancel" onPress={onCancel} />
       </View>
     </View>
   );
@@ -81,6 +89,8 @@ TimerForm.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   project: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 TimerForm.defaultProps = {

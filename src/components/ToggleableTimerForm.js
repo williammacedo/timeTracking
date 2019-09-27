@@ -14,18 +14,26 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ToggleableTimerForm() {
+export default function ToggleableTimerForm({onFormSubmit}) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const mudarBotao = () => setIsOpen(!isOpen);
+  const toggle = () => setIsOpen(!isOpen);
+  const handleSubmit = timer => {
+    onFormSubmit(timer);
+    setIsOpen(!isOpen);
+  };
 
   return (
     <View style={[styles.container, !isOpen && styles.buttonPadding]}>
       {isOpen ? (
-        <TimerForm />
+        <TimerForm onCancel={toggle} onSubmit={handleSubmit} />
       ) : (
-        <TimerButton title="+" color="black" onPress={mudarBotao} />
+        <TimerButton title="+" color="black" onPress={toggle} />
       )}
     </View>
   );
 }
+
+ToggleableTimerForm.propTypes = {
+  onFormSubmit: PropTypes.func.isRequired,
+};

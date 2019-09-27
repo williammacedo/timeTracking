@@ -3,6 +3,8 @@ import {StyleSheet, View, FlatList} from 'react-native';
 
 import uuidv4 from 'uuid/v4';
 
+import '../../config/ReactotronConfig';
+import {newTimer} from '../../utils/TimerUtils';
 import EditableTimer from '../../components/EditableTimer';
 import ToggleableTimerForm from '../../components/ToggleableTimerForm';
 
@@ -46,11 +48,35 @@ export default class Main extends Component {
     };
   }
 
+  handleCreateFormSubmit = timer => {
+    const {timers} = this.state;
+    this.setState({
+      timers: [newTimer(timer), ...timers],
+    });
+  };
+
+  handleUpdateFormSubmit = attrs => {
+    const {timers} = this.state;
+    this.setState({
+      timers: timers.map(timer => {
+        if (timer.id === attrs.id) {
+          const {title, project} = attrs;
+          return {
+            ...timer,
+            title,
+            project,
+          };
+        }
+        return timer;
+      }),
+    });
+  };
+
   render = () => {
     const {timers} = this.state;
     return (
       <View style={styles.appContainer}>
-        <ToggleableTimerForm />
+        <ToggleableTimerForm onFormSubmit={this.handleCreateFormSubmit} />
         <FlatList
           data={timers}
           renderItem={({item}) => (
