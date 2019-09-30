@@ -72,6 +72,13 @@ export default class Main extends Component {
     });
   };
 
+  handleRemove = id => {
+    const {timers} = this.state;
+    this.setState({
+      timers: timers.filter(timer => timer.id !== id),
+    });
+  };
+
   render = () => {
     const {timers} = this.state;
     return (
@@ -86,6 +93,8 @@ export default class Main extends Component {
               project={item.project}
               elapsed={item.elapsed}
               isRunning={item.isRunning}
+              onFormSubmit={this.handleCreateFormSubmit}
+              onRemove={this.handleRemove}
             />
           )}
           keyExtractor={item => item.id}

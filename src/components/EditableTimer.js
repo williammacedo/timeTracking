@@ -10,11 +10,27 @@ export default function EditableTimer({
   project,
   elapsed,
   isRunning,
+  onFormSubmit,
+  onRemove,
 }) {
   const [editFormOpen, setEditFormOpen] = useState(false);
-  const edit = () => setEditFormOpen(!editFormOpen);
+  const remove = () => onRemove(id);
+  const edit = () => setEditFormOpen(true);
+  const cancel = () => setEditFormOpen(false);
+  const handleSubmit = timer => {
+    onFormSubmit(timer);
+    setEditFormOpen(false);
+  };
   if (editFormOpen) {
-    return <TimerForm id={id} title={title} project={project} />;
+    return (
+      <TimerForm
+        id={id}
+        title={title}
+        project={project}
+        onCancel={cancel}
+        onSubmit={handleSubmit}
+      />
+    );
   }
   return (
     <Timer
@@ -24,6 +40,7 @@ export default function EditableTimer({
       elapsed={elapsed}
       isRunning={isRunning}
       onEdit={edit}
+      onRemove={remove}
     />
   );
 }
@@ -34,6 +51,8 @@ EditableTimer.propTypes = {
   project: PropTypes.string.isRequired,
   elapsed: PropTypes.number.isRequired,
   isRunning: PropTypes.bool,
+  onFormSubmit: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 EditableTimer.defaultProps = {
