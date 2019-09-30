@@ -94,7 +94,7 @@ TimerForm.propTypes = {
 };
 
 TimerForm.defaultProps = {
-  id: '',
+  id: null,
   title: '',
   project: '',
 };

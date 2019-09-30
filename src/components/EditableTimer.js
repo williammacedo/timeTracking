@@ -12,6 +12,7 @@ export default function EditableTimer({
   isRunning,
   onFormSubmit,
   onRemove,
+  onStartStop,
 }) {
   const [editFormOpen, setEditFormOpen] = useState(false);
   const remove = () => onRemove(id);
@@ -21,6 +22,8 @@ export default function EditableTimer({
     onFormSubmit(timer);
     setEditFormOpen(false);
   };
+  const startStop = () => onStartStop(id);
+
   if (editFormOpen) {
     return (
       <TimerForm
@@ -41,6 +44,7 @@ export default function EditableTimer({
       isRunning={isRunning}
       onEdit={edit}
       onRemove={remove}
+      onStartStop={startStop}
     />
   );
 }
@@ -53,6 +57,7 @@ EditableTimer.propTypes = {
   isRunning: PropTypes.bool,
   onFormSubmit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  onStartStop: PropTypes.func.isRequired,
 };
 
 EditableTimer.defaultProps = {

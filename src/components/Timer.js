@@ -31,7 +31,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Timer({title, project, elapsed, onEdit, onRemove}) {
+export default function Timer({
+  title,
+  project,
+  elapsed,
+  isRunning,
+  onEdit,
+  onRemove,
+  onStartStop,
+}) {
   const elapsedString = millisecondsToHuman(elapsed);
   return (
     <View style={styles.timerContainer}>
@@ -42,7 +50,11 @@ export default function Timer({title, project, elapsed, onEdit, onRemove}) {
         <TimerButton color="blue" small title="Edit" onPress={onEdit} />
         <TimerButton color="blue" small title="Remove" onPress={onRemove} />
       </View>
-      <TimerButton color="#21BA45" title="Start" />
+      <TimerButton
+        color={isRunning ? '#DB2828' : '#21BA45'}
+        title={isRunning ? 'Stop' : 'Start'}
+        onPress={onStartStop}
+      />
     </View>
   );
 }
@@ -51,6 +63,8 @@ Timer.propTypes = {
   title: PropTypes.string.isRequired,
   project: PropTypes.string.isRequired,
   elapsed: PropTypes.number.isRequired,
+  isRunning: PropTypes.bool.isRequired,
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
+  onStartStop: PropTypes.func.isRequired,
 };
